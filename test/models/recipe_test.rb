@@ -28,12 +28,12 @@ class RecipeTest < ActiveSupport::TestCase
   
   test "description less than max length" do
     @recipe.description = "A" * 501
-    assert_not @recipe.valid?;
+    assert_not @recipe.valid?
   end
   
   test "description greater than min length" do
     @recipe.description = "A" * 3
-    assert_not @recipe.valid?;
+    assert_not @recipe.valid?
   end
   
 end
