@@ -16,7 +16,7 @@ class RecipesController < ApplicationController
     # Hard-code chef for time-being - will be logged in later
     @recipe.chef = Chef.first
     if @recipe.save
-      flash[:success] = "Recipe successfully created!"
+      flash[:success] = "Recipe successfully created."
       # Go the recipe SHOW page
       redirect_to recipe_path(@recipe)
     else

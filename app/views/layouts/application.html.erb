@@ -11,6 +11,9 @@
 
   <body>
     <%= render 'layouts/navigation' %>
+    <!-- Display temporary info messages for user with "flash" -->
+    <%= render 'layouts/messages' %>
+    
     <div class="container">
       <%= yield %>
     </div>
