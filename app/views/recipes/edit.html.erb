@@ -1,11 +1,11 @@
-<%= render 'shared/page_title', title: "Create a New Recipe" %>
+<%= render 'shared/page_title', title: "Edit a Recipe" %>
 <% if @recipe.errors.any? %>
   <div class="row">
     <div class="col-md-offset-2 col-md-8">
       <div class="panel panel-danger">
         <div class="panel-heading">
           <h2 class="panel-title">
-            Failed to create <%= @recipe.class %>, <%= pluralize(@recipe.errors.count, "error") %> occured:
+            Failed to update <%= @recipe.class %>, <%= pluralize(@recipe.errors.count, "error") %> occured:
           </h2>
           <div class="panel-body">
             <ul>
@@ -46,10 +46,7 @@
       </div>
     <% end %>
     <div class="col-md-offset-5 col-md-7 cancel">
-      [ <%= link_to "CANCEL NEW RECIPE", recipes_path %> ]
+      [ <%= link_to "CANCEL EDIT RECIPE", recipes_path %> ]
     </div>
   </div>
 </div>
-
-
-

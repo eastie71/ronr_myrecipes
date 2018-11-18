@@ -28,6 +28,9 @@ class RecipesTest < ActionDispatch::IntegrationTest
     assert_match @aRecipe.name, response.body
     assert_match @aRecipe.description, response.body
     assert_match @aChef.chefname, response.body
+    # There should be EDIT and DELETE actions as button links
+    assert_select 'a[href=?]', edit_recipe_path(@aRecipe), text: "Edit Recipe"
+    assert_select 'a[href=?]', recipe_path(@aRecipe), text: "Delete Recipe"
   end
   
   test "create new valid recipe" do
@@ -57,5 +60,5 @@ class RecipesTest < ActionDispatch::IntegrationTest
     assert_select "h2.panel-title"
     assert_select "div.panel-body"
   end
-
+  
 end
