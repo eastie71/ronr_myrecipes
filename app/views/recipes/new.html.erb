@@ -1,55 +1,5 @@
 <%= render 'shared/page_title', title: "Create a New Recipe" %>
-<% if @recipe.errors.any? %>
-  <div class="row">
-    <div class="col-md-offset-2 col-md-8">
-      <div class="panel panel-danger">
-        <div class="panel-heading">
-          <h2 class="panel-title">
-            Failed to create <%= @recipe.class %>, <%= pluralize(@recipe.errors.count, "error") %> occured:
-          </h2>
-          <div class="panel-body">
-            <ul>
-              <% @recipe.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-<% end %>
-
-<div class="row">
-  <div class="col-md-12">
-    <%= form_for(@recipe, :html => {class: "form-horizontal", role: "form"}) do |f| %>
-      <div class="form-group">
-        <div class="control-label col-md-2">
-          <%= f.label :name %>
-        </div>
-        <div class="col-md-8">
-          <%= f.text_field :name, class: "form-control", placeholder: "Name of recipe", autofocus: true %>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="control-label col-md-2">
-          <%= f.label :description %>
-        </div>
-        <div class="col-md-8">
-          <%= f.text_area :description, class: "form-control", rows: 10, placeholder: "Enter description and steps for recipe" %>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-          <%= f.submit class: "btn btn-primary btn-lg btn-red" %>
-        </div>
-      </div>
-    <% end %>
-    <div class="col-md-offset-5 col-md-7 cancel">
-      [ <%= link_to "CANCEL NEW RECIPE", recipes_path %> ]
-    </div>
-  </div>
-</div>
+<%= render 'form', fail_message: "Failed to create", cancel_message: "CANCEL NEW RECIPE" %>
 
 
 

@@ -31,6 +31,7 @@ class RecipesTest < ActionDispatch::IntegrationTest
     # There should be EDIT and DELETE actions as button links
     assert_select 'a[href=?]', edit_recipe_path(@aRecipe), text: "Edit Recipe"
     assert_select 'a[href=?]', recipe_path(@aRecipe), text: "Delete Recipe"
+    assert_select 'a[href=?]', recipes_path, text: "Return to Recipes List"
   end
   
   test "create new valid recipe" do
