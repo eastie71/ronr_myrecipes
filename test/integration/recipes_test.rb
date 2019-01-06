@@ -4,8 +4,8 @@ class RecipesTest < ActionDispatch::IntegrationTest
   def setup
     @aChef = Chef.create!(chefname: "Craig", email: "cde@mail.com.au",
                     password: "password", password_confirmation: "password")
-    @aRecipe = Recipe.create!(name: "Best bbq bangers", description: "awesome bbq sausages.", chef: @aChef)
-    @aRecipe2 = @aChef.recipes.build(name: "chocalate cake", description: "fast and easy chocalate cake")
+    @aRecipe = Recipe.create!(name: "Best Bbq Bangers", description: "awesome bbq sausages.", chef: @aChef)
+    @aRecipe2 = @aChef.recipes.build(name: "Chocalate Cake", description: "fast and easy chocalate cake")
     @aRecipe2.save
   end
   
@@ -38,7 +38,7 @@ class RecipesTest < ActionDispatch::IntegrationTest
   test "create new valid recipe" do
     get new_recipe_path
     assert_template 'recipes/new'
-    my_recipe_name = "chocolate cake"
+    my_recipe_name = "Chocolate Cake"
     my_recipe_description = "Melt dark chocalate, add sugar, eggs, flour, bake for 45 mins and 180 c"
     # Check to see if the count of the number of recipes increases if valid recipe is entered
     assert_difference 'Recipe.count' do
@@ -46,8 +46,8 @@ class RecipesTest < ActionDispatch::IntegrationTest
     end
     # Follow the redirect to the SHOW page
     follow_redirect!
-    assert_match my_recipe_name.capitalize, response.body
-    assert_match my_recipe_description.capitalize, response.body
+    assert_match my_recipe_name, response.body
+    assert_match my_recipe_description, response.body
   end
 
   test "reject invalid new recipe" do

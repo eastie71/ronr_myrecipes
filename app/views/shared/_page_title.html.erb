@@ -1,2 +1,2 @@
-<h1 align="center"><%= title.capitalize %></h1>
+<h1 align="center"><%= title.gsub(/\w{2,}\b/) { |word| word.capitalize } %></h1>
 <hr />
