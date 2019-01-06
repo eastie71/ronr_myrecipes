@@ -1,0 +1,49 @@
+<%= render 'shared/page_title', title: "Signup as a New Chef" %>
+<%= render 'shared/errors', object: @chef, error_message: "Failed to Signup" %>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for(@chef, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+      <div class="form-group">
+        <div class="control-label col-md-2">
+          <%= f.label :chefname, "Chef Name" %>
+        </div>
+        <div class="col-md-8">
+          <%= f.text_field :chefname, class: "form-control", placeholder: "Enter your Chef Name", autofocus: true %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="control-label col-md-2">
+          <%= f.label :email %>
+        </div>
+        <div class="col-md-8">
+          <%= f.email_field :email, class: "form-control", placeholder: "Enter your email" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="control-label col-md-2">
+          <%= f.label :password %>
+        </div>
+        <div class="col-md-8">
+          <%= f.password_field :password, class: "form-control", placeholder: "Password" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="control-label col-md-2">
+          <%= f.label :confirmation_password, "Confirm Password" %>
+        </div>
+        <div class="col-md-8">
+          <%= f.password_field :confirmation_password, class: "form-control", placeholder: "Re-enter Password" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+          <%= f.submit "Create Account", class: "btn btn-primary btn-lg btn-red" %>
+        </div>
+      </div>
+    <% end %>
+    <div class="col-md-offset-5 col-md-7 cancel">
+      [ <%= link_to "CANCEL SIGNUP", recipes_path %> ]
+    </div>
+  </div>
+</div>
