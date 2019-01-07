@@ -2,7 +2,8 @@ class RecipesController < ApplicationController
   before_action :set_current_recipe, only: [:show,:edit,:update,:destroy]
   
   def index
-    @recipes = Recipe.all
+    # Using the will_paginate gem for page pagination
+    @recipes = Recipe.paginate(:page => params[:page], :per_page => 5)
   end
   
   def show
