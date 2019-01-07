@@ -42,7 +42,7 @@ class RecipesController < ApplicationController
   def destroy
     # Not sure if destroy can fail - not sure what to do?
     @recipe.destroy
-    flash[:success] = "Recipe: \"" + @recipe.name + "\" deleted"
+    flash[:danger] = "Recipe: \"" + @recipe.name + "\" deleted"
     # Return to Index page
     redirect_to recipes_path
   end

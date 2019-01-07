@@ -37,6 +37,14 @@ class ChefsController < ApplicationController
     end
   end
   
+  def destroy
+    @chef = Chef.find(params[:id])
+    @chef.destroy
+    flash[:danger] = "Chef: \"" + @chef.chefname + "\" and all associated Recipes have been deleted!"
+    # Return to Index page
+    redirect_to chefs_path
+  end
+  
   def chef_params
     params.require(:chef).permit(:chefname, :email, :password, :password_confirmation)
   end

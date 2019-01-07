@@ -69,4 +69,12 @@ class ChefTest < ActiveSupport::TestCase
     @chef.password = @chef.password_confirmation = "x" * 4
     assert_not @chef.valid?
   end
+  
+  test "recipes should be removed on chef delete" do
+    @chef.save
+    @chef.recipes.create!(name: "test destroy chef", description: "test destroy description")
+    assert_difference 'Recipe.count', -1 do
+      @chef.destroy
+    end
+  end
 end
