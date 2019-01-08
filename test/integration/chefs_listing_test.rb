@@ -5,7 +5,7 @@ class ChefsListingTest < ActionDispatch::IntegrationTest
     @aChef = Chef.create!(chefname: "Craig", email: "cde@mail.com.au",
                     password: "password", password_confirmation: "password")
     @aChef2 = Chef.create!(chefname: "John", email: "john@mail.com.au",
-                    password: "password", password_confirmation: "password")
+                    password: "password", password_confirmation: "password", admin: true)
     @aRecipe = Recipe.create!(name: "Best Bbq Bangers", description: "awesome bbq sausages.", chef: @aChef)
   end
   
@@ -29,7 +29,7 @@ class ChefsListingTest < ActionDispatch::IntegrationTest
     get chefs_path
     assert_template 'chefs/index'
     assert_difference 'Chef.count', -1 do
-      delete chef_path(@aChef2)
+      delete chef_path(@aChef)
     end
     assert_redirected_to chefs_path
     assert_not flash.empty?

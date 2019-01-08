@@ -10,9 +10,12 @@
           <li class="chef-title"><%= link_to chef.chefname.gsub(/\w{2,}\b/) { |word| word.capitalize }, chef_path(chef) %></li>
           <li><small><%= pluralize(chef.recipes.count, "recipe") if chef.recipes %></small></li>
           <div class="chef-actions">
-            <li><%= link_to "Delete this Chef", chef_path(chef), method: :delete, 
+            <!-- Don't display the delete option for admin chefs -->
+            <% if logged_in? && current_chef.admin? && !chef.admin? %>
+              <li><%= link_to "Delete this Chef", chef_path(chef), method: :delete, 
                                       data: { confirm: "Are you sure you want to Delete this Chef and all their associated Recipes?" }, 
                                       class: "btn btn-danger btn-xs" %></li>
+            <% end %>
           </div>
         </div>
       </div>
