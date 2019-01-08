@@ -8,6 +8,7 @@ class RecipesEditTest < ActionDispatch::IntegrationTest
   end
   
   test "accept valid recipe edit" do
+    sign_in_as(@aChef, @aChef.password)
     get edit_recipe_path(@aRecipe)
     assert_template 'recipes/edit'
     updated_recipe_name = "UPDATED chocolate cake"
@@ -24,6 +25,7 @@ class RecipesEditTest < ActionDispatch::IntegrationTest
   end
 
   test "reject invalid recipe edit" do 
+    sign_in_as(@aChef, @aChef.password)
     get edit_recipe_path(@aRecipe)
     assert_template 'recipes/edit'
     # Reject the edit as the name is changed to BLANK

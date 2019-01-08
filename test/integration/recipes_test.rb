@@ -23,6 +23,7 @@ class RecipesTest < ActionDispatch::IntegrationTest
   end
   
   test "should get the recipes show" do
+    sign_in_as(@aChef, @aChef.password)
     get recipe_path(@aRecipe)
     assert_template 'recipes/show'
     # search for the recipe name, description and chef name in the body of the page
@@ -36,6 +37,7 @@ class RecipesTest < ActionDispatch::IntegrationTest
   end
   
   test "create new valid recipe" do
+    sign_in_as(@aChef, @aChef.password)
     get new_recipe_path
     assert_template 'recipes/new'
     my_recipe_name = "Chocolate Cake"
@@ -51,6 +53,7 @@ class RecipesTest < ActionDispatch::IntegrationTest
   end
 
   test "reject invalid new recipe" do
+    sign_in_as(@aChef, @aChef.password)
     get new_recipe_path
     assert_template 'recipes/new'
     # Check to see if the count of the number of recipes increases, when trying to post an invalid recipe

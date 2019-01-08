@@ -1,5 +1,7 @@
 class RecipesController < ApplicationController
   before_action :set_current_recipe, only: [:show,:edit,:update,:destroy]
+  before_action :require_user, except: [:index, :show]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
   
   def index
     # Using the will_paginate gem for page pagination
@@ -15,8 +17,8 @@ class RecipesController < ApplicationController
   
   def create
     @recipe = Recipe.new(recipe_params)
-    # Hard-code chef for time-being - will be logged in later
-    @recipe.chef = Chef.first
+    # Use the logged in chef
+    @recipe.chef = current_chef
     if @recipe.save
       flash[:success] = "Recipe successfully created."
       # Go the recipe SHOW page
@@ -55,5 +57,12 @@ class RecipesController < ApplicationController
     # white list the recipe parameters passed through to create action
     def recipe_params
       params.require(:recipe).permit(:name,:description)
+    end
+    
+    def require_same_user
+      if current_chef != @recipe.chef
+        flash[:danger] = "You can only edit or delete your own recipes!"
+        redirect_to recipes_path
+      end
     end
 end
