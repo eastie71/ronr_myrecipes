@@ -5,4 +5,6 @@ class Recipe < ApplicationRecord
   validates :chef_id, presence: true
   # Ordered by updated date in descending order - ie. latest recipes at the top
   default_scope -> { order(updated_at: :desc) }
+  has_many :recipe_ingredients
+  has_many :ingredients, through: :recipe_ingredients
 end

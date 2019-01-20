@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_chef, :logged_in?
   
   def current_chef
-    # ruby always returns the last line froma method
+    # ruby always returns the last line from a method
     # this means return the @current_chef if it exists, else go and find it if it doesn't
     @current_chef ||= Chef.find(session[:chef_id]) if session[:chef_id]
   end
