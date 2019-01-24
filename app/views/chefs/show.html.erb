@@ -4,13 +4,21 @@
     <%= gravatar_for @chef, size: 150 %>
   </div>
 </div>
+<% if @chef_recipes.count > 0 %>
+  <h4 align="center" class="marg-bottom">
+    <%= @chef.chefname.gsub(/\w{2,}\b/) { |word| word.capitalize } %>'s Recipes
+  </h4>
+  <div class="center">
+    <%= will_paginate @chef_recipes %>
+  </div>
+  <%= render 'recipes/recipe', object: @chef_recipes %>
+  <div class="center">
+    <%= will_paginate @chef_recipes %>
+  </div>
+<% else %>
+  <h4 align="center" class="marg-bottom">
+    No recipes submitted
+  </h4>
+<% end %>
 
-<h4 align="center"><%= @chef.chefname %>'s Recipes</h4>
 
-<div class="center">
-  <%= will_paginate @chef_recipes %>
-</div>
-<%= render 'recipes/recipe', object: @chef_recipes %>
-<div class="center">
-  <%= will_paginate @chef_recipes %>
-</div>

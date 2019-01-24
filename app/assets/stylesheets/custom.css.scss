@@ -145,6 +145,12 @@ $navbar-default-bg: #aa421d;
   }
 }
 
+.ingredient-actions {
+  a {
+    color: white;
+  }
+}
+
 .listing {
   list-style: none;
   padding-left: 0;
@@ -153,4 +159,8 @@ $navbar-default-bg: #aa421d;
 .chef-title {
   color: #aa421d;
   font-size: 1.25em;
+}
+
+.marg-bottom {
+  margin-bottom: 30px;
 }

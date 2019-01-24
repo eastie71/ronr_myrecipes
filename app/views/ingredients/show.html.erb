@@ -1,0 +1,20 @@
+<%= render 'shared/page_title', title: @ingredient.name.gsub(/\w{2,}\b/) { |word| word.capitalize} %>
+
+<% if @ingredient_recipes.count > 0 %>
+  <h4 align="center" class="marg-bottom">
+    Recipe's containing <%= @ingredient.name.gsub(/\w{2,}\b/) { |word| word.capitalize } %>
+  </h4>
+  <div class="center">
+    <%= will_paginate @ingredient_recipes %>
+  </div>
+  <%= render 'recipes/recipe', object: @ingredient_recipes %>
+  <div class="center">
+    <%= will_paginate @ingredient_recipes %>
+  </div>
+<% else %>
+  <h4 align="center" class="marg-bottom">
+    No recipes found for this ingredient
+  </h4>
+<% end %>
+
+
