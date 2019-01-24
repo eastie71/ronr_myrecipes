@@ -7,6 +7,7 @@ class Chef < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   # dependent destroy means recipes are removed on a chef destroy(delete)
   has_many :recipes, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_secure_password
   validates :password, presence: true, length: {minimum: 5}, allow_nil: true
 end
