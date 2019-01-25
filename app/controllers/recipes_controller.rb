@@ -55,8 +55,10 @@ class RecipesController < ApplicationController
     end
   
     # white list the recipe parameters passed through to create action
+    # here the syntax for many-to-many relationship with ingredients to expect a list of ingredient ids to 
+    # be passed through is "ingredient_ids: []"
     def recipe_params
-      params.require(:recipe).permit(:name,:description)
+      params.require(:recipe).permit(:name,:description, ingredient_ids: [])
     end
     
     def require_same_user_or_admin
