@@ -12,7 +12,8 @@
         <p>Ingredients: <%= render recipe.ingredients %></p>
       <% end %>
       <p>
-         <span class="quiet"><small>Created By: <%= recipe.chef.chefname.gsub(/\w{2,}\b/) { |word| word.capitalize } + ", " + time_ago_in_words(recipe.created_at) + " ago" %></small></span>
+         <span class="quiet"><small>Created By: <%= recipe.chef.chefname.gsub(/\w{2,}\b/) { |word| word.capitalize } + ", " + time_ago_in_words(recipe.created_at) + " ago" %>
+                                                  | <%= pluralize(recipe.comments.count, 'Comment') %></small></span>
       </p>
       <% if logged_in? && (current_chef == recipe.chef || current_chef.admin?) %>
         <div class="recipe-actions">

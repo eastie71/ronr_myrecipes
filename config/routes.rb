@@ -8,7 +8,10 @@ Rails.application.routes.draw do
   # get '/recipes/:id', to: 'recipes#show', as: 'recipe'
   # post '/recipes', to: 'recipes#create'
   # Replace all the above with "resources :recipes"
-  resources :recipes
+  resources :recipes do
+    # Nested route here - comments are under recipes
+    resources :comments, only: [:create]
+  end
   get '/signup', to: 'chefs#new'
   resources :chefs, except: [:new]
   resources :ingredients
