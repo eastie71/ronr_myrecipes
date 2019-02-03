@@ -1,0 +1,17 @@
+<%= render 'shared/page_title', title: "Chef's Chatroom!" %>
+
+<div class="row chat-container">
+  <div class="col-md-8 center-block">
+    <div class="messages" id="messages">
+      <%= render @messages %>
+    </div>
+    <hr/>
+    <div class="message-container">
+      <!-- Submit form via AJAX (rather than http) (via remote: true) so that form stays same -->
+      <%= form_for(@message, remote: true, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+        <%= f.text_area :content, class: "form-control", placeholder: "Enter your message here" %>
+        <%= f.submit "Send", class: "btn btn-primary btn-lg btn-red" %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -41,11 +41,6 @@
       <!-- Submit form via AJAX (rather than http) (via remote: true) so that form stays same -->
       <%= form_for([@recipe, @comment], remote: true, :html => {class: "form-horizontal", role: "form"}) do |f| %>
         <div class="form-group">
-          <!--
-          <div class="control-label col-md-2">
-            <%= f.label :description, " " %>
-          </div>
-          -->
           <div class="col-md-8">
             <%= f.text_area :description, class: "form-control", rows: 8, placeholder: "Enter your comment" %>
           </div>
@@ -74,7 +69,8 @@
 <% else %>
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <h3 class="marg-bottom">No Previous Comments</h3>
+      <h3 class="comment-heading marg-bottom">No Previous Comments</h3>
+      <div id="new-comments"></div>
     </div>
   </div>
 <% end %>
