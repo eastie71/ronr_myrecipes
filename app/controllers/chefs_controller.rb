@@ -16,6 +16,7 @@ class ChefsController < ApplicationController
     if @chef.save
       # Set the NEW chef as the current logged in chef
       session[:chef_id] = @chef.id
+      cookies.signed[:chef_id] = @chef.id
       flash[:success] = "Welcome #{@chef.chefname} to the MyRecipes App!"
       redirect_to chef_path(@chef)
     else
