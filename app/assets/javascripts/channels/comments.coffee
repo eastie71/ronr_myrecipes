@@ -11,5 +11,5 @@ App.comments = App.cable.subscriptions.create "CommentsChannel",
     else
       $(".marg-bottom .comment-heading").val("Previous Comments")
       $("#new-comments").prepend(data)
-    
+    $("#form-comment").val('')
     # Called when there's incoming data on the websocket for this channel

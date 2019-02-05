@@ -10,5 +10,12 @@
       <span class="quiet"><small>Created: <%= time_ago_in_words(comment.created_at) %> ago by 
                                     <%= comment.chef.chefname.gsub(/\w{2,}\b/) { |word| word.capitalize } %></small></span>
     </p>
+    <div class="recipe-actions">
+      <% if logged_in? && (current_chef == comment.chef || current_chef.admin?) %>
+        <%= link_to "Delete Comment", recipe_comment_path(comment.recipe, comment), method: :delete, 
+                                        data: { confirm: "Are you sure you want to Delete this Comment?" }, 
+                                        class: "btn btn-danger btn-xs" %>
+      <% end %>
+    </div>
   </div>
 </div>

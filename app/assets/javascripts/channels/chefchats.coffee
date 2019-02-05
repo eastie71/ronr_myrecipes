@@ -7,6 +7,6 @@ App.chefchats = App.cable.subscriptions.create "ChefchatsChannel",
 
   received: (data) ->
     $('#messages').prepend data['message']
-    #$('#message_content').val ''
+    $('#message_content').val('')
     return
     # Called when there's incoming data on the websocket for this channel

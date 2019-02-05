@@ -15,11 +15,22 @@ class CommentsController < ApplicationController
     end
   end
   
+  def destroy
+    @comment = Comment.find(params[:id])
+    
+    if @comment.chef == current_chef || current_chef.admin?
+      @comment.destroy
+      flash[:danger] = "Comment has been deleted!"
+      redirect_to recipe_path(@comment.recipe)
+    else
+      flash[:danger] = "You are not authorised to delete this comment!"
+      redirect_to root_path
+    end
+  end
+  
   private
     def comment_params
       params.require(:comment).permit(:description)
     end
     
-    def require_user
-    end
 end

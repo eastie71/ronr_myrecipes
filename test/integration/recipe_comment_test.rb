@@ -6,6 +6,8 @@ class RecipeCommentTest < ActionDispatch::IntegrationTest
                       password: "password", password_confirmation: "password")
     @chef2 = Chef.create!(chefname: "Georgia Eastwood", email: "georgia@test.com",
                       password: "password", password_confirmation: "password")
+    @admin_chef = Chef.create!(chefname: "ADMIN", email: "admin@test.com",
+                      password: "password", password_confirmation: "password", admin: true)
     @recipe = @chef.recipes.build(name: "beef curry", description: "Spicy and tasty Beef Curry.")
     @recipe.save
     @comment = @recipe.comments.build(description: "Sooooo tasty", chef: @chef2)
@@ -30,11 +32,6 @@ class RecipeCommentTest < ActionDispatch::IntegrationTest
     assert_difference 'Comment.count' do
       post recipe_comments_path(@recipe), params: { comment: {description: new_comment}  }
     end
-    # Follow the redirect to the SHOW page
-    follow_redirect!
-    assert_template 'recipes/show'
-    # Check for flash message of successful create
-    assert_not flash.empty?
     # Search for the new comment description and chef name in the body of the page
     assert_match new_comment, response.body
     assert_match @chef.chefname, response.body
@@ -64,5 +61,44 @@ class RecipeCommentTest < ActionDispatch::IntegrationTest
     # Follow the redirect to the HOME page
     follow_redirect!
     assert_template 'pages/home'
+  end
+  
+  test "chef should have ability to delete their own comment" do
+    sign_in_as(@chef2, @chef2.password)
+    get recipe_path(@recipe)
+    assert_template 'recipes/show'
+    # Check there is a Delete Comment button link
+    assert_select 'a[href=?]', recipe_comment_path(@recipe, @comment), text: "Delete Comment"
+    # Check that count decreases by 1 on delete
+    assert_difference 'Comment.count', -1 do
+      delete recipe_comment_path(@recipe, @comment)
+    end
+    assert_not flash.empty?
+  end
+  
+  test "chef should not have ability to delete other chef comments" do
+    sign_in_as(@chef, @chef.password)
+    get recipe_path(@recipe)
+    assert_template 'recipes/show'
+    # Check there is a Delete Comment button link
+    assert_select 'a[href=?]', recipe_comment_path(@recipe, @comment), { count: 0, text: "Delete Comment" }
+    # Check that count DOES NOT decrease by 1 on attempted delete
+    assert_no_difference 'Comment.count' do
+      delete recipe_comment_path(@recipe, @comment)
+    end
+    assert_not flash.empty?
+  end
+
+  test "admin chef can delete any comments" do
+    sign_in_as(@admin_chef, @admin_chef.password)
+    get recipe_path(@recipe)
+    assert_template 'recipes/show'
+    # Check there is a Delete Comment button link
+    assert_select 'a[href=?]', recipe_comment_path(@recipe, @comment), text: "Delete Comment"
+    # Check that count decreases by 1 on delete
+    assert_difference 'Comment.count', -1 do
+      delete recipe_comment_path(@recipe, @comment)
+    end
+    assert_not flash.empty?
   end
 end

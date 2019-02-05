@@ -45,7 +45,7 @@ class ChefsController < ApplicationController
     # Do not allow deletion of admin chefs
     if !@chef.admin? 
       @chef.destroy
-      flash[:danger] = "Chef: \"" + @chef.chefname + "\" and all associated Recipes have been deleted!"
+      flash[:danger] = "Chef: \"" + @chef.chefname + "\" and all associated Recipes and Comments have been deleted!"
       # Return to Index page
       redirect_to chefs_path
     end
