@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_03_044706) do
+ActiveRecord::Schema.define(version: 2019_02_10_105648) do
 
   create_table "chefs", force: :cascade do |t|
     t.string "chefname"
@@ -31,6 +31,12 @@ ActiveRecord::Schema.define(version: 2019_02_03_044706) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "chef_id"
+    t.integer "recipe_id"
+    t.index ["recipe_id", "chef_id"], name: "index_likes_on_recipe_id_and_chef_id", unique: true
   end
 
   create_table "messages", force: :cascade do |t|

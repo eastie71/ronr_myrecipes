@@ -9,4 +9,5 @@ class Recipe < ApplicationRecord
   has_many :ingredients, through: :recipe_ingredients
   # Destroy comments if destroying the recipe
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
 end

@@ -15,14 +15,31 @@
          <span class="quiet"><small>Created By: <%= recipe.chef.chefname.gsub(/\w{2,}\b/) { |word| word.capitalize } + ", " + time_ago_in_words(recipe.created_at) + " ago" %>
                                                   | <%= pluralize(recipe.comments.count, 'Comment') %></small></span>
       </p>
-      <% if logged_in? && (current_chef == recipe.chef || current_chef.admin?) %>
-        <div class="recipe-actions">
+      <div class="recipe-actions">
+        <% if logged_in? && (current_chef == recipe.chef || current_chef.admin?) %>
           <%= link_to "Edit Recipe", edit_recipe_path(recipe), class: "btn btn-warning btn-xs" %>
           <%= link_to "Delete Recipe", recipe_path(recipe), method: :delete, 
                                       data: { confirm: "Are you sure you want to Delete this Recipe?" }, 
                                       class: "btn btn-danger btn-xs" %>
-        </div>
-      <% end %>
+        <% end %>
+        
+        <% if logged_in? && Like.find_by(recipe: recipe, chef: current_chef) == nil %>
+          <%= link_to recipe_likes_path(recipe, Like.find_by(recipe: recipe, chef: current_chef)), :method => :post do %>
+            <span class="like-box">
+              <i class="fa fa-heart-o" aria-hidden="true"></i>
+              <span class="like-count"><%= recipe.likes.count %></span>
+            </span>
+          <% end %>
+        <% else %>
+          <%= link_to recipe_like_path(recipe, Like.find_by(recipe: recipe, chef: current_chef)), method: :delete do %>
+            <span class="like-box">
+              <i class="fa fa-heart" aria-hidden="true"></i>
+              <span class="like-count"><%= recipe.likes.count %></span>
+            </span>
+          <% end %>
+        <% end %>
+  
+      </div>
     </div>
   </div>
 <% end %>

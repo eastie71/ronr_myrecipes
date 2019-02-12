@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :recipes do
     # Nested route here - comments are under recipes
     resources :comments, only: [:create, :destroy]
+    resources :likes, only: [:create, :destroy]
   end
   get '/signup', to: 'chefs#new'
   resources :chefs, except: [:new]

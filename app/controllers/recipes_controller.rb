@@ -11,6 +11,8 @@ class RecipesController < ApplicationController
   def show
     @comment = Comment.new
     @comments = @recipe.comments.paginate(:page => params[:page], :per_page => 5)
+    @like = Like.new
+    @likes = @recipe.likes
   end
   
   def new
