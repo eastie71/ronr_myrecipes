@@ -117,12 +117,17 @@ $navbar-default-bg: #aa421d;
   margin-top: 0;
 }
 
+.show-padding {
+  padding-bottom: 90px;
+}
+
 .well a {
   color: #aa421d;
 }
 
 .chef_info {
   margin-top: 10px;
+  margin-bottom: 15px;
 }
 
 .cancel {
@@ -176,6 +181,12 @@ $navbar-default-bg: #aa421d;
 .chat-container {
   margin: 150px, 0, 0, 0;
   width: 80%;
+}
+
+.btn-margin {
+  margin-top: 4px;
+  margin-right: 4px; 
+  margin-bottom: 4px;
 }
 
 .message-container {
@@ -240,6 +251,16 @@ $navbar-default-bg: #aa421d;
 //  visibility: hidden;
 //  transform: scale(.2);
 //  opacity: 0;
+}
+
+.keep-left {
+  margin-top: 12px;
+  margin-left: 0px;
+  float: left;
+}
+
+.show-like {
+  float: none;
 }
 
 /**

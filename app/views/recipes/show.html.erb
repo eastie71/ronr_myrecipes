@@ -1,15 +1,12 @@
 <%= render 'shared/page_title', title: @recipe.name %>
 
-<div class="well col-md-8 col-md-offset-2">
+<div class="well col-md-8 col-md-offset-2 show-padding">
   <h4 class="center description"><strong>Description and Steps: </strong></h4>
   <hr />
   <!-- By using simple_format it keeps the display of newlines if they were entered on creation -->
   <%= simple_format(@recipe.description) %>
   <hr />
   
-  <% if @recipe.ingredients.any? %>
-    <p>Ingredients: <%= render @recipe.ingredients %></p>
-  <% end %>
   <div class="pull-right">
     <p class="center">
       <em>Created by:</em>
@@ -22,14 +19,44 @@
       <div class="pull-right"><%= time_ago_in_words(@recipe.created_at) %> ago</div>
     </p>
   </div>
+  <% if @recipe.ingredients.any? %>
+    <p>Ingredients: <%= render @recipe.ingredients %></p>
+  <% end %>
   <div class="recipe-actions">
     <% if logged_in? && (current_chef == @recipe.chef || current_chef.admin?) %>
-      <%= link_to "Edit Recipe", edit_recipe_path(@recipe), class: "btn btn-warning btn-xs" %>
+      <%= link_to "Edit Recipe", edit_recipe_path(@recipe), class: "btn btn-warning btn-xs btn-margin" %>
       <%= link_to "Delete Recipe", recipe_path(@recipe), method: :delete, 
                                       data: { confirm: "Are you sure you want to Delete this Recipe?" }, 
-                                      class: "btn btn-danger btn-xs" %>
+                                      class: "btn btn-danger btn-xs btn-margin" %>
     <% end %>
-    <%= link_to "Return to Recipes List", recipes_path, class: "btn btn-primary btn-xs" %>
+    <%= link_to "Return to Recipes List", recipes_path, class: "btn btn-primary btn-xs btn-margin" %>
+    
+  </div>
+  <div class="show-like">
+    <% if logged_in? && Like.find_by(recipe: @recipe, chef: current_chef) == nil %>
+      <%= link_to recipe_likes_path(@recipe, Like.find_by(recipe: @recipe, chef: current_chef)), :method => :post do %>
+        <span class="like-box keep-left">
+          <i class="fa fa-heart-o" aria-hidden="true"></i>
+          <span class="like-count"><%= @recipe.likes.count %></span>
+        </span>
+      <% end %>
+    <% elsif logged_in? %>
+      <%= link_to recipe_like_path(@recipe, Like.find_by(recipe: @recipe, chef: current_chef)), method: :delete do %>
+        <span class="like-box keep-left">
+          <i class="fa fa-heart" aria-hidden="true"></i>
+          <span class="like-count"><%= @recipe.likes.count %></span>
+        </span>
+      <% end %>
+    <% else %>
+      <span class="like-box keep-left">
+        <% if @recipe.likes.count > 0 %>
+          <i class="fa fa-heart" aria-hidden="true"></i>
+        <% else %>
+          <i class="fa fa-heart-o" aria-hidden="true"></i>
+        <% end %>
+        <span class="like-count"><%= @recipe.likes.count %></span>
+      </span>
+    <% end %>
   </div>
 </div>
 

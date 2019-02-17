@@ -5,7 +5,7 @@
         <%= gravatar_for(recipe.chef, size: 120) %>
       </section>
     </div>
-    <div class="col-md-8 well">
+    <div class="col-md-8 well show-padding">
       <h4><%= link_to recipe.name, recipe_path(recipe) %></h4>
       <p><%= truncate(recipe.description, length: 150) %></p>
       <% if recipe.ingredients.any? %>
@@ -30,13 +30,22 @@
               <span class="like-count"><%= recipe.likes.count %></span>
             </span>
           <% end %>
-        <% else %>
+        <% elsif logged_in? %>
           <%= link_to recipe_like_path(recipe, Like.find_by(recipe: recipe, chef: current_chef)), method: :delete do %>
             <span class="like-box">
               <i class="fa fa-heart" aria-hidden="true"></i>
               <span class="like-count"><%= recipe.likes.count %></span>
             </span>
           <% end %>
+        <% else %>
+          <span class="like-box">
+            <% if recipe.likes.count > 0 %>
+              <i class="fa fa-heart" aria-hidden="true"></i>
+            <% else %>
+              <i class="fa fa-heart-o" aria-hidden="true"></i>
+            <% end %>
+            <span class="like-count"><%= recipe.likes.count %></span>
+          </span>
         <% end %>
   
       </div>
