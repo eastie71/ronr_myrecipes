@@ -24,4 +24,5 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   get '/chat', to: 'chefchats#show'
   resources :messages, only: [:create]
+  get '/popular', to: 'recipes#popular'
 end

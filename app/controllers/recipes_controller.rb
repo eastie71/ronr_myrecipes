@@ -1,11 +1,19 @@
 class RecipesController < ApplicationController
   before_action :set_current_recipe, only: [:show,:edit,:update,:destroy]
-  before_action :require_user, except: [:index, :show]
+  before_action :require_user, except: [:index, :show, :popular]
   before_action :require_same_user_or_admin, only: [:edit, :update, :destroy]
   
   def index
     # Using the will_paginate gem for page pagination
     @recipes = Recipe.paginate(:page => params[:page], :per_page => 5)
+  end
+  
+  def popular
+    @myrecipes = Recipe.unscoped.all
+                        .left_joins(:likes)
+                        .group(:id)
+                        .order('COUNT(likes.id) DESC')
+    @recipes = @myrecipes.paginate(:page => params[:page], :per_page => 5)
   end
   
   def show

@@ -1,0 +1,8 @@
+<%= render 'shared/page_title', title: "Most Popular Recipes" %>
+<div align="center">
+  <%= will_paginate @recipes %>
+</div>
+<%= render 'recipe', object: @recipes %>
+<div align="center">
+  <%= will_paginate @recipes %>
+</div>
