@@ -9,6 +9,8 @@
           <li><%= link_to gravatar_for(chef), chef_path(chef) %></li>
           <li class="chef-title"><%= link_to chef.chefname.gsub(/\w{2,}\b/) { |word| word.capitalize }, chef_path(chef) %></li>
           <li><small><%= pluralize(chef.recipes.count, "recipe") if chef.recipes %></small></li>
+          <% @like_count = chef.recipes.joins(:likes).count %>
+          <li><small><%= pluralize(@like_count, "like") if chef.recipes %></small></li>
           <div class="chef-actions">
             <!-- Don't display the delete option for admin chefs -->
             <% if logged_in? && current_chef.admin? && !chef.admin? %>
